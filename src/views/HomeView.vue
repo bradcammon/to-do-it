@@ -1,9 +1,15 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref } from 'vue'
+
+let food = ref('')
+
+function write() {
+  localStorage.setItem('foodInput', food.value)
+}
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <p>What is your favorite food? <input type="text" v-model="food" @input="write" /></p>
   </main>
 </template>

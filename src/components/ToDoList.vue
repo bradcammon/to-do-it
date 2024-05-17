@@ -8,6 +8,12 @@ console.log(toDo.items[0])
 
 <template>
   <ul>
-    <ToDoListItem v-for="item in toDo.items" :key="item.id" :name="item.name" />
+    <ToDoListItem
+      v-for="item in toDo.items"
+      :key="item.id"
+      :name="item.name"
+      :id="item.id"
+      :item="item"
+    />
   </ul>
 </template>

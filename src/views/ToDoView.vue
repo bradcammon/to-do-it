@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import ToDoHeader from '@/components/ToDoHeader.vue'
 import ToDoCreate from '@/components/ToDoCreate.vue'
+import ToDoTabs from '@/components/ToDoTabs.vue'
 import ToDoList from '@/components/ToDoList.vue'
+import ToDoFooter from '@/components/ToDoFooter.vue'
 </script>
 
 <template>
   <ToDoHeader />
   <ToDoCreate />
+  <ToDoTabs />
   <ToDoList />
+  <ToDoFooter />
 
   <!-- <form id="todo-form" class="todo-form">
     <label>
@@ -16,17 +20,6 @@ import ToDoList from '@/components/ToDoList.vue'
     </label>
     <button>Add</button>
   </form> -->
-
-  <ol id="todo-list" class="todo-list">
-    <li>
-      <button aria-label="Complete">×</button>
-      Walk the dog
-    </li>
-    <li>
-      <button aria-label="Complete">×</button>
-      Figure out what doing with life
-    </li>
-  </ol>
 </template>
 
 <!-- <style>

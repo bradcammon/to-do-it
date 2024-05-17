@@ -5,12 +5,12 @@ export let useToDoStore = defineStore('toDo', {
     return {
       items: [
         {
-          name: 'John Doe',
+          name: 'John Doe (from the store)',
           completed: false,
           id: 1
         },
         {
-          name: 'Faith Evans',
+          name: 'Faith Evans (from the store)',
           completed: false,
           id: 2
         }

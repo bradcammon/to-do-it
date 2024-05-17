@@ -13,7 +13,7 @@ function add() {
     completed: false,
     id: toDo.items.length + 1
   })
-
+  console.log(toDo.items)
   toDoItem.value = ''
 }
 </script>

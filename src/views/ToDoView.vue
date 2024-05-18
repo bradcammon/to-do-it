@@ -16,14 +16,6 @@ toDo.fill()
   <ToDoTabs />
   <ToDoList />
   <ToDoFooter />
-
-  <!-- <form id="todo-form" class="todo-form">
-    <label>
-      <span class="screen-reader-text">New TODO</span>
-      <input type="text" name="todo" />
-    </label>
-    <button>Add</button>
-  </form> -->
 </template>
 
 <!-- <style>

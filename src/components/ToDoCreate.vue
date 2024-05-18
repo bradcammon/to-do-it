@@ -7,13 +7,7 @@ let toDo = useToDoStore()
 let toDoItem = ref('')
 
 function add() {
-  toDo.items.push({
-    name: toDoItem.value,
-    completed: false,
-    id: toDo.generateUUID()
-  })
-
-  toDo.sendToDoToServer(toDoItem.value)
+  toDo.addNewToDo(toDoItem.value)
   toDoItem.value = ''
 }
 </script>

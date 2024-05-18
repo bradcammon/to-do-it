@@ -1,7 +1,7 @@
 <script setup>
-// import { useToDoStore } from '@/stores/ToDoStore'
+import { useToDoStore } from '@/stores/ToDoStore'
 
-// let toDo = useToDoStore()
+let toDo = useToDoStore()
 
 // import { ref } from 'vue'
 defineProps({
@@ -12,13 +12,13 @@ defineProps({
 //TODO: Move this logic to the Store?
 function toggleComplete(item) {
   item.completed = !item.completed
-  // alert(item.name + item.id + 'Complete: ' + item.completed)
+  toDo.patchItem(item)
 }
 </script>
 
 <template>
-  <li v-if="!item.completed">
-    {{ item.name }}<button @click="toggleComplete(item)">Mark Complete</button>
+  <li :class="{ completed: item.completed }">
+    <input type="checkbox" @click="toggleComplete(item)" />{{ item.name }}
   </li>
 </template>
 
@@ -28,6 +28,10 @@ function toggleComplete(item) {
 }
 
 .completed {
-  color: green;
+  color: gray;
+  text-decoration: line-through;
+}
+input[type='checkbox'] {
+  accent-color: gray;
 }
 </style>

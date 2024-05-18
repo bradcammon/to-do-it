@@ -7,13 +7,13 @@ let toDo = useToDoStore()
 let toDoItem = ref('')
 
 function add() {
-  //   localStorage.setItem('toDoItem', toDoItem.value)
   toDo.items.push({
     name: toDoItem.value,
     completed: false,
-    id: toDo.items.length + 1
+    id: toDo.generateUUID()
   })
-  console.log(toDo.items)
+
+  toDo.sendToDoToServer(toDoItem.value)
   toDoItem.value = ''
 }
 </script>

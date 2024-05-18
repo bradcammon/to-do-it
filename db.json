@@ -1,0 +1,61 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "views": 100
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "views": 200
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "items": [
+    {
+      "name": "John Doe (from the store)",
+      "completed": false,
+      "id": "4ff65e0a-c338-454e-89da-39d83f4e6c06"
+    },
+    {
+      "name": "Faith Evans (from the store)",
+      "completed": false,
+      "id": "3d1e4d2b-d402-4928-9c06-7a1a8b8d85a4"
+    },
+    {
+      "id": "e42a0555-2379-433d-8209-ec8c37be0a1d",
+      "name": "healthy",
+      "completed": false
+    },
+    {
+      "id": "c71ee5d6-313d-44f4-bd18-c003d3501dc1",
+      "name": "johnny",
+      "completed": false
+    },
+    {
+      "id": "18133260-9aeb-4261-977a-8ba2f2c0a3ac",
+      "name": "ola",
+      "completed": false
+    },
+    {
+      "id": "a2eb7f3a-a484-4fc6-ae9a-c8b5a9afdc7b",
+      "name": "hello",
+      "completed": false
+    }
+  ]
+}

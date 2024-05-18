@@ -3,7 +3,7 @@ import ToDoListItem from './ToDoListItem.vue'
 import { useToDoStore } from '@/stores/ToDoStore'
 
 let toDo = useToDoStore()
-console.log(toDo.items[0])
+// console.log(toDo.items[0])
 </script>
 
 <template>

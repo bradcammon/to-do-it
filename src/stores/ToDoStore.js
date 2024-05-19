@@ -70,6 +70,18 @@ export let useToDoStore = defineStore('toDo', {
       }
       console.log('patchItem complete')
     },
+    async deleteItem(item) {
+      const itemId = item.id
+      const deleteApiUrl = apiUrl + '/' + itemId
+      const response = await fetch(deleteApiUrl, {
+        method: 'DELETE'
+      })
+      console.log('response from Delete:', response)
+      if (response.status != 200) {
+        console.log('Error deleting item from api')
+      }
+      console.log('deleteItem complete')
+    },
     generateUUID() {
       return self.crypto.randomUUID()
     }

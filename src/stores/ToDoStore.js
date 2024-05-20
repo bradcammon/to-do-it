@@ -70,6 +70,27 @@ export let useToDoStore = defineStore('toDo', {
       }
       console.log('patchItem complete')
     },
+    async updateItemName(item) {
+      //TODO: Make this more generic?
+      console.log('updateItemName started')
+      const itemId = item.id
+      const patchApiUrl = apiUrl + '/' + itemId
+      const data = {
+        name: item.name
+      }
+      const response = await fetch(patchApiUrl, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      console.log('response from updateItemName:', response)
+      if (response.status != 200) {
+        console.log('Error with updateItemName api')
+      }
+      console.log('updateItemName complete')
+    },
     async deleteItem(item) {
       const itemId = item.id
       const deleteApiUrl = apiUrl + '/' + itemId

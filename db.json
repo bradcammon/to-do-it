@@ -39,7 +39,12 @@
     },
     {
       "id": "a720bcbb-f8e2-439f-a1c2-ae09fa404312",
-      "name": "wash clothes",
+      "name": "wash clothes, son!",
+      "completed": false
+    },
+    {
+      "id": "7b161e0e-f903-4eaf-8259-59200426b397",
+      "name": "tortilla rilla",
       "completed": false
     }
   ]

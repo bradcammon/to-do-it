@@ -3,19 +3,13 @@ import { useToDoStore } from '@/stores/ToDoStore'
 
 let toDo = useToDoStore()
 
-// import { ref } from 'vue'
-
 defineProps({
-  name: String,
-  id: String,
   item: Object
 })
 
-const emit = defineEmits(['response'])
+const inputName = defineModel()
 
-// emit('response', 'hello from child')
-
-// const itemName = ref(item)
+const emit = defineEmits(['editItem'])
 
 //TODO: Move this logic to the Store?
 function toggleComplete(item) {
@@ -29,31 +23,14 @@ function deleteItem(item) {
   // Update the api
   toDo.deleteItem(item)
 }
-
-//TODO: need to emit an item object to parent.  Parent will filter based on ID and update the subject value.
-
-function textEdited(e) {
-  console.log(e)
-  // alert('edited')
-  const form = new FormData(e.target)
-  const name = form.get('editedName')
-  // console.log(name)
-  emit('response', name)
-}
-
-// function foo(){
-//   console.log('item:', toDo.item)
-// }
 </script>
 
 <template>
   <li :class="{ completed: item.completed }">
     <input type="checkbox" @click="toggleComplete(item)" />{{ item.name }}
     <button @click="deleteItem(item)" id="delete">Delete</button>
-    <form @submit.prevent="textEdited">
-      <input type="text" :value="item.name" name="editedName" @click="$emit('handleEdit', item)" />
-    </form>
   </li>
+  <input v-model="inputName" @keyup.enter="$emit('editItem', item)" />
 </template>
 
 <style>

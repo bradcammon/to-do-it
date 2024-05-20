@@ -8,8 +8,8 @@ import { useToDoStore } from '@/stores/ToDoStore'
 let toDo = useToDoStore()
 
 //TODO: need to know what item this is...
-function handleItemEdit(newSubject) {
-  console.log('new:', newSubject)
+function handleItemEdit(item) {
+  console.log('edited item:', item)
 }
 </script>
 
@@ -17,7 +17,7 @@ function handleItemEdit(newSubject) {
   <ul>
     <ToDoListItem
       v-for="item in toDo.items"
-      @response="handleItemEdit"
+      @handleEdit="handleItemEdit"
       :key="item.id"
       :name="item.name"
       :id="item.id"

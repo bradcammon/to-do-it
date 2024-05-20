@@ -30,6 +30,8 @@ function deleteItem(item) {
   toDo.deleteItem(item)
 }
 
+//TODO: need to emit an item object to parent.  Parent will filter based on ID and update the subject value.
+
 function textEdited(e) {
   console.log(e)
   // alert('edited')
@@ -38,6 +40,10 @@ function textEdited(e) {
   // console.log(name)
   emit('response', name)
 }
+
+// function foo(){
+//   console.log('item:', toDo.item)
+// }
 </script>
 
 <template>
@@ -45,7 +51,7 @@ function textEdited(e) {
     <input type="checkbox" @click="toggleComplete(item)" />{{ item.name }}
     <button @click="deleteItem(item)" id="delete">Delete</button>
     <form @submit.prevent="textEdited">
-      <input type="text" :value="item.name" name="editedName" />
+      <input type="text" :value="item.name" name="editedName" @click="$emit('handleEdit', item)" />
     </form>
   </li>
 </template>

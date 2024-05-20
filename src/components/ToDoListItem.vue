@@ -9,7 +9,7 @@ defineProps({
 
 const inputName = defineModel()
 
-const emit = defineEmits(['editItem'])
+const emit = defineEmits(['editItem']) // this _seems_ to be required...not sure.  Need to research
 
 //TODO: Move this logic to the Store?
 function toggleComplete(item) {

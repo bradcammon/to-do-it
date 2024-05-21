@@ -1,5 +1,7 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore'
+import { ref } from 'vue'
+let editMode = ref(false)
 
 let toDo = useToDoStore()
 
@@ -23,14 +25,27 @@ function deleteItem(item) {
   // Update the api
   toDo.deleteItem(item)
 }
+
+function editItem() {
+  editMode.value = true
+}
+
+function submitEdit(item) {
+  editMode.value = false
+  emit('editItem', item)
+}
 </script>
 
 <template>
-  <li :class="{ completed: item.completed }">
+  <li v-if="!editMode" :class="{ completed: item.completed }">
     <input type="checkbox" @click="toggleComplete(item)" />{{ item.name }}
+    <button @click="editItem()" id="edit">Edit</button>
     <button @click="deleteItem(item)" id="delete">Delete</button>
   </li>
-  <input v-model="inputName" @keyup.enter="$emit('editItem', item)" />
+  <div v-if="editMode">
+    <input v-model="inputName" @keyup.enter="submitEdit(item)" />
+    <button @click="submitEdit(item)">Submit</button>
+  </div>
 </template>
 
 <style>

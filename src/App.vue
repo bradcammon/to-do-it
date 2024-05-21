@@ -1,11 +1,11 @@
 <script setup>
-import ToDoView from './views/ToDoView.vue'
+import ToDoMainView from './views/ToDoMainView.vue'
 </script>
 
 <template>
   <header></header>
 
-  <ToDoView />
+  <ToDoMainView />
 </template>
 
 <style scoped></style>

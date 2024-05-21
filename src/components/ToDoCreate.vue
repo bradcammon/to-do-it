@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useToDoStore } from '@/stores/ToDoStore'
 
 let toDo = useToDoStore()
-
 let toDoItem = ref('')
 
 function add() {
@@ -13,7 +12,6 @@ function add() {
 </script>
 
 <template>
-  The Item: {{ toDoItem }}
   <form @submit.prevent="add">
     <div>
       <input type="text" v-model="toDoItem" />

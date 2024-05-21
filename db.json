@@ -38,24 +38,9 @@
       "id": "3d1e4d2b-d402-4928-9c06-7a1a8b8d85a4"
     },
     {
-      "id": "a720bcbb-f8e2-439f-a1c2-ae09fa404312",
-      "name": "wash clothes, hijo!",
-      "completed": false
-    },
-    {
-      "id": "7b161e0e-f903-4eaf-8259-59200426b397",
-      "name": "tortilla favorslfsjkla",
-      "completed": false
-    },
-    {
-      "id": "7405f903-314c-4a30-917d-679fc17d6605",
-      "name": "Another one is here!222",
-      "completed": false
-    },
-    {
-      "id": "586a27b3-16d9-4bd5-b166-5d0d5e2e2be6",
-      "name": "Goodbye my friend",
-      "completed": false
+      "id": "7c526ec2-f6f4-4a43-920e-ba26b3463097",
+      "name": "hello",
+      "completed": true
     }
   ]
 }

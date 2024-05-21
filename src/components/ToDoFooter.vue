@@ -1,5 +1,4 @@
 <script setup>
-// import { ref } from 'vue'
 import { useToDoStore } from '@/stores/ToDoStore'
 
 let toDo = useToDoStore()
@@ -15,7 +14,7 @@ function deleteCompleted() {
 <template>
   <footer>
     <div>
-      <p>There are {{ toDo.activeItemCount }} active items left</p>
+      <p>There are {{ toDo.activeItemsFilter.length }} active items left</p>
     </div>
     <div><button @click="deleteCompleted">Clear Completed</button></div>
   </footer>

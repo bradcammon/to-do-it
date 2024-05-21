@@ -1,8 +1,8 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore'
 import { ref } from 'vue'
-let editMode = ref(false)
 
+let editMode = ref(false)
 let toDo = useToDoStore()
 
 defineProps({
@@ -10,13 +10,13 @@ defineProps({
 })
 
 const inputName = defineModel()
-
 const emit = defineEmits(['editItem']) // this _seems_ to be required...not sure.  Need to research
 
 //TODO: Move this logic to the Store?
 function toggleComplete(item) {
   item.completed = !item.completed
-  toDo.patchItem(item)
+  const data = { completed: item.completed }
+  toDo.patchItem(item, data)
 }
 
 function deleteItem(item) {

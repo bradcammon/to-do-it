@@ -9,21 +9,22 @@ export let useToDoStore = defineStore('toDo', {
     }
   },
   getters: {
-    activeItemCount: (state) => state.items.filter((x) => x.completed == false).length,
     activeItemsFilter: (state) => state.items.filter((x) => x.completed == false),
     completedItemsFilter: (state) => state.items.filter((x) => x.completed == true),
     allItemsFilter: (state) => state.items,
     filteredItems() {
-      if (this.currentTag == 'all') {
-        return this.items
-      } else if (this.currentTag == 'active') {
-        return this.activeItemsFilter
-      } else if (this.currentTag == 'completed') {
-        return this.completedItemsFilter
+      switch (this.currentTag) {
+        case 'active':
+          return this.activeItemsFilter
+        case 'completed':
+          return this.completedItemsFilter
+        default: // 'all'
+          return this.items
       }
     }
   },
   actions: {
+    /** Fill the store with data from the backend **/
     async fill() {
       console.log('fill started')
       const response = await fetch(apiUrl)
@@ -31,19 +32,34 @@ export let useToDoStore = defineStore('toDo', {
       this.items = items
       console.log('fill complete')
     },
-    async sendToDoToServer(data) {
-      console.log('sendToDoToServer started')
-      const response = await fetch(apiUrl, {
-        method: 'POST',
+    /** A generic fetch method to keep things DRY-ish **/
+    async genericFetch(httpMethod, data, url) {
+      console.log('genericFetch started')
+      const response = await fetch(url, {
+        method: httpMethod,
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       })
-      console.log(response)
+
+      if (response.status < 200 || response.status > 299) {
+        console.log('Error making request to server', response)
+      } else {
+        console.log('genericFetch ended')
+        return response
+      }
+    },
+
+    /** Send a new ToDo item to the backend **/
+    async sendToDoToServer(data) {
+      console.log('sendToDoToServer started')
+      const response = await this.genericFetch('POST', data, apiUrl)
       console.log('sendToDoToServer complete')
       return response
     },
+
+    /** Add a new ToDo to the store AND the backend **/
     async addNewToDo(toDoSubject) {
       console.log('addNewToDo started')
       const data = {
@@ -61,72 +77,47 @@ export let useToDoStore = defineStore('toDo', {
       if (response.status == 201) {
         this.fill()
       } else {
-        console.log('Error updating API with new ToDo item.')
+        console.log('Error updating API with new ToDo item.', response)
       }
       console.log('addNewToDo complete')
     },
-    async patchItem(item) {
-      //TODO: Make this more generic?
+
+    /** Update an existing ToDo item on the backend **/
+    async patchItem(item, data) {
       console.log('patchItem started')
       const itemId = item.id
       const patchApiUrl = apiUrl + '/' + itemId
-      const data = {
-        completed: item.completed
-      }
-      const response = await fetch(patchApiUrl, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      console.log('response from Patch:', response)
+      const response = await this.genericFetch('PATCH', data, patchApiUrl)
+
       if (response.status != 200) {
-        console.log('Error patching api')
+        console.log('Error patching api', response)
       }
       console.log('patchItem complete')
     },
-    async updateItemName(item) {
-      //TODO: Make this more generic?
-      console.log('updateItemName started')
-      const itemId = item.id
-      const patchApiUrl = apiUrl + '/' + itemId
-      const data = {
-        name: item.name
-      }
-      const response = await fetch(patchApiUrl, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      console.log('response from updateItemName:', response)
-      if (response.status != 200) {
-        console.log('Error with updateItemName api')
-      }
-      console.log('updateItemName complete')
-    },
+
+    /** Delete a ToDo item on the backend **/
     async deleteItem(item) {
-      console.log('item from deleteItem:', item)
       const itemId = item.id
       const deleteApiUrl = apiUrl + '/' + itemId
       const response = await fetch(deleteApiUrl, {
         method: 'DELETE'
       })
-      console.log('response from Delete:', response)
+
       if (response.status != 200) {
         console.log('Error deleting item from api')
       }
       console.log('deleteItem complete')
     },
+
+    /** Delete multiple ToDo items on the backend **/
     deleteItems(items) {
       //TODO: it would be nice to do all of this with one bulk request
       for (const item of items) {
-        console.log(item)
         this.deleteItem(item)
       }
     },
+
+    /** Generate a UUID **/
     generateUUID() {
       return self.crypto.randomUUID()
     }

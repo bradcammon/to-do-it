@@ -13,7 +13,7 @@ toDo.fill()
 <template>
   <ToDoHeader />
   <ToDoCreate />
-  <ToDoTabs />
+  <!-- <ToDoTabs /> -->
   <ToDoList />
   <ToDoFooter />
 </template>

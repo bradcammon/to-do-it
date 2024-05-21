@@ -4,7 +4,23 @@ const apiUrl = 'http://localhost:3000/items'
 export let useToDoStore = defineStore('toDo', {
   state() {
     return {
-      items: []
+      items: [],
+      currentTag: 'all'
+    }
+  },
+  getters: {
+    activeItemCount: (state) => state.items.filter((x) => x.completed == false).length,
+    activeItemsFilter: (state) => state.items.filter((x) => x.completed == false),
+    completedItemsFilter: (state) => state.items.filter((x) => x.completed == true),
+    allItemsFilter: (state) => state.items,
+    filteredItems() {
+      if (this.currentTag == 'all') {
+        return this.items
+      } else if (this.currentTag == 'active') {
+        return this.activeItemsFilter
+      } else if (this.currentTag == 'completed') {
+        return this.completedItemsFilter
+      }
     }
   },
   actions: {
@@ -92,6 +108,7 @@ export let useToDoStore = defineStore('toDo', {
       console.log('updateItemName complete')
     },
     async deleteItem(item) {
+      console.log('item from deleteItem:', item)
       const itemId = item.id
       const deleteApiUrl = apiUrl + '/' + itemId
       const response = await fetch(deleteApiUrl, {
@@ -102,6 +119,13 @@ export let useToDoStore = defineStore('toDo', {
         console.log('Error deleting item from api')
       }
       console.log('deleteItem complete')
+    },
+    deleteItems(items) {
+      //TODO: it would be nice to do all of this with one bulk request
+      for (const item of items) {
+        console.log(item)
+        this.deleteItem(item)
+      }
     },
     generateUUID() {
       return self.crypto.randomUUID()

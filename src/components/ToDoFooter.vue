@@ -14,7 +14,7 @@ function deleteCompleted() {
 <template>
   <footer>
     <div>
-      <p>There are {{ toDo.activeItemsFilter.length }} active items left</p>
+      <p v-show="false">There are {{ toDo.activeItemsFilter.length }} active items left</p>
     </div>
     <div><button @click="deleteCompleted">Clear Completed</button></div>
   </footer>

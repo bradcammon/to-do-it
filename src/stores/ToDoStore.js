@@ -123,3 +123,6 @@ export let useToDoStore = defineStore('toDo', {
     }
   }
 })
+
+// TODO: If there is a network interruption during an attempt to update the backend,
+// how to handle synchronizing the state of the local store and the backend at a later time?

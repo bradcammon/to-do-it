@@ -1,18 +1,24 @@
 import { defineStore } from 'pinia'
 const apiUrl = 'http://localhost:3000/items'
 
+interface Item {
+  id: string
+  name: string
+  completed: boolean
+}
+
 export let useToDoStore = defineStore('toDo', {
   state() {
     return {
-      items: [],
-      currentTag: 'all'
+      items: [] as Item[],
+      currentTag: 'all' as string
     }
   },
   getters: {
-    activeItemsFilter: (state) => state.items.filter((x) => x.completed == false),
-    completedItemsFilter: (state) => state.items.filter((x) => x.completed == true),
-    allItemsFilter: (state) => state.items,
-    filteredItems() {
+    activeItemsFilter: (state): Item[] => state.items.filter((x) => x.completed == false),
+    completedItemsFilter: (state): Item[] => state.items.filter((x) => x.completed == true),
+    allItemsFilter: (state): Item[] => state.items,
+    filteredItems(): Item[] {
       switch (this.currentTag) {
         case 'active':
           return this.activeItemsFilter
@@ -33,7 +39,11 @@ export let useToDoStore = defineStore('toDo', {
       console.log('fill complete')
     },
     /** A generic fetch method to keep things DRY-ish **/
-    async genericFetch(httpMethod, data, url) {
+    async genericFetch(
+      httpMethod: string,
+      data: Record<string, any>,
+      url: string
+    ): Promise<Response> {
       console.log('genericFetch started')
       const response = await fetch(url, {
         method: httpMethod,
@@ -47,12 +57,12 @@ export let useToDoStore = defineStore('toDo', {
         console.log('Error making request to server', response)
       } else {
         console.log('genericFetch ended')
-        return response
       }
+      return response
     },
 
     /** Send a new ToDo item to the backend **/
-    async sendToDoToServer(data) {
+    async sendToDoToServer(data: Record<string, any>) {
       console.log('sendToDoToServer started')
       const response = await this.genericFetch('POST', data, apiUrl)
       console.log('sendToDoToServer complete')
@@ -60,7 +70,7 @@ export let useToDoStore = defineStore('toDo', {
     },
 
     /** Add a new ToDo to the store AND the backend **/
-    async addNewToDo(toDoSubject) {
+    async addNewToDo(toDoSubject: string) {
       console.log('addNewToDo started')
       const data = {
         name: toDoSubject,
@@ -68,7 +78,7 @@ export let useToDoStore = defineStore('toDo', {
         id: this.generateUUID()
       }
       // 1. Push new item onto the store
-      this.items.push({ data })
+      this.items.push(data)
 
       // 2. Send new item to the api
       const response = await this.sendToDoToServer(data)
@@ -83,7 +93,7 @@ export let useToDoStore = defineStore('toDo', {
     },
 
     /** Update an existing ToDo item on the backend **/
-    async patchItem(item, data) {
+    async patchItem(item: Item, data: Record<string, any>) {
       console.log('patchItem started')
       const itemId = item.id
       const patchApiUrl = apiUrl + '/' + itemId
@@ -96,7 +106,7 @@ export let useToDoStore = defineStore('toDo', {
     },
 
     /** Delete a ToDo item on the backend **/
-    async deleteItem(item) {
+    async deleteItem(item: Record<string, any>) {
       const itemId = item.id
       const deleteApiUrl = apiUrl + '/' + itemId
       const response = await fetch(deleteApiUrl, {
@@ -110,7 +120,7 @@ export let useToDoStore = defineStore('toDo', {
     },
 
     /** Delete multiple ToDo items on the backend **/
-    deleteItems(items) {
+    deleteItems(items: Item[]) {
       //TODO: it would be nice to do all of this with one bulk request
       for (const item of items) {
         this.deleteItem(item)

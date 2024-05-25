@@ -11,7 +11,7 @@ function handleItemEdit(item) {
 </script>
 
 <template>
-  <ul>
+  <ul v-if="!toDo.isLoading">
     <ToDoListItem
       v-for="item in toDo.filteredItems"
       @editItem="handleItemEdit"
@@ -20,4 +20,5 @@ function handleItemEdit(item) {
       v-model="item.name"
     />
   </ul>
+  <p v-else>Loading...</p>
 </template>

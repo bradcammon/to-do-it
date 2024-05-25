@@ -1,17 +1,32 @@
 import { defineStore } from 'pinia'
+import { useConvexQuery, useConvexMutation } from '@convex-vue/core'
+import { api } from '../../convex/_generated/api'
+import { watchEffect } from 'vue'
+
 const apiUrl = 'http://localhost:3000/items'
+const debugMode = true
+
+function logger(label: string = '', logItem: any) {
+  if (debugMode) {
+    console.log(label, logItem)
+  }
+}
 
 interface Item {
   id: string
   name: string
   completed: boolean
+  _creationTime?: number
+  _id?: string
 }
 
 export let useToDoStore = defineStore('toDo', {
   state() {
     return {
       items: [] as Item[],
-      currentTag: 'all' as string
+      currentTag: 'all' as string,
+      todos: [] as Item[],
+      isLoading: true
     }
   },
   getters: {
@@ -30,21 +45,41 @@ export let useToDoStore = defineStore('toDo', {
     }
   },
   actions: {
+    async fillFromConvex() {
+      // TODO: handle errors etc
+      const { data, isLoading, error, suspense } = useConvexQuery(
+        api.todos.get, // the query name
+        {} // query arguments, if no arguments you need to pass an empty object. It can be ref
+      )
+
+      watchEffect(() => {
+        if (!isLoading.value) {
+          this.isLoading = isLoading.value
+          // Data has been delivered
+          this.todos = data.value
+          this.items = data.value
+        }
+      })
+    },
+
     /** Fill the store with data from the backend **/
     async fill() {
-      console.log('fill started')
+      logger('fill started')
       const response = await fetch(apiUrl)
       const items = await response.json()
+      // console.log('items after json decode:', items)
       this.items = items
-      console.log('fill complete')
+      // console.log('state items:', this.items)
+      logger('fill complete')
     },
+
     /** A generic fetch method to keep things DRY-ish **/
     async genericFetch(
       httpMethod: string,
       data: Record<string, any>,
       url: string
     ): Promise<Response> {
-      console.log('genericFetch started')
+      logger('genericFetch started')
       const response = await fetch(url, {
         method: httpMethod,
         headers: {
@@ -54,24 +89,24 @@ export let useToDoStore = defineStore('toDo', {
       })
 
       if (response.status < 200 || response.status > 299) {
-        console.log('Error making request to server', response)
+        logger('Error making request to server', response)
       } else {
-        console.log('genericFetch ended')
+        logger('genericFetch ended')
       }
       return response
     },
 
     /** Send a new ToDo item to the backend **/
     async sendToDoToServer(data: Record<string, any>) {
-      console.log('sendToDoToServer started')
+      logger('sendToDoToServer started')
       const response = await this.genericFetch('POST', data, apiUrl)
-      console.log('sendToDoToServer complete')
+      logger('sendToDoToServer complete')
       return response
     },
 
     /** Add a new ToDo to the store AND the backend **/
     async addNewToDo(toDoSubject: string) {
-      console.log('addNewToDo started')
+      logger('addNewToDo started')
       const data = {
         name: toDoSubject,
         completed: false,
@@ -87,22 +122,23 @@ export let useToDoStore = defineStore('toDo', {
       if (response.status == 201) {
         this.fill()
       } else {
-        console.log('Error updating API with new ToDo item.', response)
+        logger('Error updating API with new ToDo item.', response)
       }
-      console.log('addNewToDo complete')
+      logger('addNewToDo complete')
     },
 
     /** Update an existing ToDo item on the backend **/
     async patchItem(item: Item, data: Record<string, any>) {
-      console.log('patchItem started')
+      // logger('patchItem started')
+      logger('patchItem started - logger')
       const itemId = item.id
       const patchApiUrl = apiUrl + '/' + itemId
       const response = await this.genericFetch('PATCH', data, patchApiUrl)
 
       if (response.status != 200) {
-        console.log('Error patching api', response)
+        logger('Error patching api', response)
       }
-      console.log('patchItem complete')
+      logger('patchItem complete')
     },
 
     /** Delete a ToDo item on the backend **/
@@ -114,9 +150,9 @@ export let useToDoStore = defineStore('toDo', {
       })
 
       if (response.status != 200) {
-        console.log('Error deleting item from api')
+        logger('Error deleting item from api')
       }
-      console.log('deleteItem complete')
+      logger('deleteItem complete')
     },
 
     /** Delete multiple ToDo items on the backend **/

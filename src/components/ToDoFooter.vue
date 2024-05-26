@@ -25,9 +25,10 @@ function deleteCompleted() {
 
 <template>
   <footer>
-    <div>
-      <p v-show="false">There are {{ toDo.activeItemsFilter.length }} active items left</p>
-    </div>
-    <div><button @click="deleteCompleted">Clear Completed</button></div>
+    <v-card class="mx-auto">
+      <v-card-text class="d-flex justify-space-between">
+        <v-chip prepend-icon="mdi-delete-alert" @click="deleteCompleted"> Clear Completed </v-chip>
+      </v-card-text>
+    </v-card>
   </footer>
 </template>

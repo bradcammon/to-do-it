@@ -7,9 +7,15 @@ import ToDoFooter from '@/components/ToDoFooter.vue'
 </script>
 
 <template>
-  <ToDoHeader />
-  <ToDoCreate />
-  <ToDoTabs />
-  <ToDoList />
-  <ToDoFooter />
+  <v-container>
+    <v-row justify="center" align="center">
+      <v-col cols="12" sm="8" md="6">
+        <ToDoHeader />
+        <ToDoCreate />
+        <ToDoTabs />
+        <ToDoList />
+        <ToDoFooter />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>

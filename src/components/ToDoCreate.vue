@@ -22,8 +22,8 @@ function add() {
 <template>
   <form @submit.prevent="add">
     <div>
-      <input type="text" v-model="toDoItem" />
-      <button type="submit">Add</button>
+      <v-text-field label="Enter ToDo Item" v-model="toDoItem" variant="outlined"></v-text-field>
+      <!-- <v-btn type="submit" variant="outlined"> Add </v-btn> -->
     </div>
   </form>
 </template>

@@ -14,14 +14,16 @@ function handleItemEdit(item) {
 </script>
 
 <template>
-  <ul v-if="!toDo.isLoading">
-    <ToDoListItem
-      v-for="item in toDo.filteredItems"
-      @editItem="handleItemEdit"
-      :key="item.id"
-      :item="item"
-      v-model="item.name"
-    />
-  </ul>
-  <p v-else>Loading...</p>
+  <v-list>
+    <ul v-if="!toDo.isLoading">
+      <ToDoListItem
+        v-for="item in toDo.filteredItems"
+        @editItem="handleItemEdit"
+        :key="item.id"
+        :item="item"
+        v-model="item.name"
+      />
+    </ul>
+    <p v-else>Loading...</p>
+  </v-list>
 </template>

@@ -36,15 +36,23 @@ function submitEdit(item) {
 </script>
 
 <template>
-  <li v-if="!editMode" :class="{ completed: item.completed }">
-    <input type="checkbox" @click="toggleComplete(item)" />{{ item.name }}
-    <button @click="editItem()" id="edit">Edit</button>
-    <button @click="deleteItem(item)" id="delete">Delete</button>
-  </li>
-  <div v-if="editMode">
-    <input v-model="inputName" @keyup.enter="submitEdit(item)" />
-    <button @click="submitEdit(item)">Submit</button>
-  </div>
+  <v-list-item>
+    <li v-if="!editMode" :class="{ completed: item.completed }">
+      <input type="checkbox" @click="toggleComplete(item)" />
+      {{ item.name }}
+      <v-btn @click="editItem()" density="comfortable" icon="mdi-pencil" size="small"></v-btn>
+      <v-btn @click="deleteItem(item)" density="comfortable" icon="mdi-delete" size="small"></v-btn>
+    </li>
+    <div v-if="editMode">
+      <v-text-field
+        label="Enter ToDo Item"
+        v-model="inputName"
+        @keyup.enter="submitEdit(item)"
+        variant="outlined"
+      ></v-text-field>
+      <v-btn @click="submitEdit(item)" density="comfortable" icon="mdi-check" size="small"></v-btn>
+    </div>
+  </v-list-item>
 </template>
 
 <style>

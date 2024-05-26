@@ -11,7 +11,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <ToDoMainView />
+  <v-app>
+    <v-main>
+      <ToDoMainView />
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped></style>

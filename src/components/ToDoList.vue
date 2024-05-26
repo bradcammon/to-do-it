@@ -1,12 +1,15 @@
 <script setup>
 import ToDoListItem from './ToDoListItem.vue'
 import { useToDoStore } from '@/stores/ToDoStore'
+import { useConvexMutation } from '@convex-vue/core'
+import { api } from '../../convex/_generated/api'
+
+const { mutate: editItemText } = useConvexMutation(api.todos.editText)
 
 let toDo = useToDoStore()
 
 function handleItemEdit(item) {
-  const data = { name: item.name }
-  toDo.patchItem(item, data)
+  editItemText({ id: item._id, name: item.name })
 }
 </script>
 

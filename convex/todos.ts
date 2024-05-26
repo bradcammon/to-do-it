@@ -57,3 +57,10 @@ export const setCompleted = mutation({
     await ctx.db.patch(id, { completed })
   }
 })
+
+export const editText = mutation({
+  args: { name: v.string(), id: v.id('todos') },
+  handler: async (ctx, { id, name }) => {
+    await ctx.db.patch(id, { name })
+  }
+})

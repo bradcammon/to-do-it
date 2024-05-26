@@ -1,6 +1,11 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore'
 import { ref } from 'vue'
+import { useConvexMutation } from '@convex-vue/core'
+import { api } from '../../convex/_generated/api'
+
+const { mutate: setCompleted } = useConvexMutation(api.todos.setCompleted)
+const { mutate: removeTodo, isLoading: isRemoving } = useConvexMutation(api.todos.remove)
 
 let editMode = ref(false)
 let toDo = useToDoStore()
@@ -12,18 +17,12 @@ defineProps({
 const inputName = defineModel()
 const emit = defineEmits(['editItem']) // this _seems_ to be required...not sure.  Need to research
 
-//TODO: Move this logic to the Store?
-function toggleComplete(item) {
-  item.completed = !item.completed
-  const data = { completed: item.completed }
-  toDo.patchItem(item, data)
+async function toggleComplete(item) {
+  await setCompleted({ completed: !item.completed, id: item._id })
 }
 
-function deleteItem(item) {
-  const filteredItemsArray = toDo.items.filter((x) => x.id !== item.id)
-  toDo.$patch({ items: filteredItemsArray })
-  // Update the api
-  toDo.deleteItem(item)
+async function deleteItem(item) {
+  await removeTodo({ id: item._id })
 }
 
 function editItem() {

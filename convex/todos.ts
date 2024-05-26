@@ -39,6 +39,15 @@ export const remove = mutation({
   }
 })
 
+export const deleteMany = mutation({
+  args: { ids: v.array(v.id('todos')) },
+  handler: async (ctx, { ids }) => {
+    for (const id of ids) {
+      await ctx.db.delete(id)
+    }
+  }
+})
+
 export const add = mutation({
   args: { name: v.string() },
   handler: async (ctx, { name }) => {

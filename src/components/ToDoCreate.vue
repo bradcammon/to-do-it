@@ -14,8 +14,8 @@ const { mutate: addTodo } = useConvexMutation(api.todos.add, {
   }
 })
 
-async function add() {
-  await addTodo({ name: toDoItem.value })
+function add() {
+  addTodo({ name: toDoItem.value })
 }
 </script>
 

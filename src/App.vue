@@ -4,7 +4,6 @@ import { useToDoStore } from '@/stores/ToDoStore'
 import { onMounted } from 'vue'
 
 let toDo = useToDoStore()
-// toDo.fill()
 
 onMounted(() => {
   toDo.fillFromConvex()

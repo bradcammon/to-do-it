@@ -1,13 +1,25 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore'
+import { useConvexMutation } from '@convex-vue/core'
+import { api } from '../../convex/_generated/api'
+
+const { mutate: deleteManyTodos, isLoading: isRemoving } = useConvexMutation(api.todos.deleteMany)
 
 let toDo = useToDoStore()
 
 function deleteCompleted() {
   const completedItems = toDo.completedItemsFilter
-  toDo.$patch({ items: toDo.activeItemsFilter })
-  // Update the api
-  toDo.deleteItems(completedItems)
+  let itemsToDelete = []
+
+  for (const [key, innerObject] of Object.entries(completedItems)) {
+    for (const [innerKey, value] of Object.entries(innerObject)) {
+      if (innerKey == '_id') {
+        itemsToDelete.push(value)
+      }
+    }
+  }
+
+  deleteManyTodos({ ids: itemsToDelete })
 }
 </script>
 

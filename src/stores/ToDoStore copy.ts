@@ -6,7 +6,7 @@ import { watchEffect } from 'vue'
 const apiUrl = 'http://localhost:3000/items'
 const debugMode = true
 
-function logger(label: string = '', logItem: any = null) {
+function logger(label: string = '', logItem: any) {
   if (debugMode) {
     console.log(label, logItem)
   }
@@ -45,6 +45,7 @@ export let useToDoStore = defineStore('toDo', {
     }
   },
   actions: {
+    /** Fill with data from Convex AND subscribe to updates */
     async fillFromConvex() {
       // TODO: handle errors etc
       const { data, isLoading, error, suspense } = useConvexQuery(
@@ -56,22 +57,47 @@ export let useToDoStore = defineStore('toDo', {
         if (!isLoading.value) {
           this.isLoading = isLoading.value
           // Data has been delivered
-          this.todos = data.value
+          // this.todos = data.value
           this.items = data.value
         }
       })
     },
 
-    /** Fill the store with data from the backend **/
-    // async fill() {
-    //   logger('fill started')
-    //   const response = await fetch(apiUrl)
-    //   const items = await response.json()
-    //   // console.log('items after json decode:', items)
-    //   this.items = items
-    //   // console.log('state items:', this.items)
-    //   logger('fill complete')
+    // addNewToDoToConvex(toDoSubject: string) {
+    //   const { mutate: addTodo } = useConvexMutation(api.todos.add, {
+    //     onSuccess() {
+    //       console.log('success in addNewToDoToConvex')
+    //       // todo.value = '';
+    //       // inputRef.value?.focus();
+    //     }
+    //     // optimisticUpdate(ctx) {
+    //     //   const current = ctx.getQuery(api.todos.get, {});
+    //     //   if (!current) return;
+
+    //     //   ctx.setQuery(api.todos.get, {}, [
+    //     //     {
+    //     //       _creationTime: Date.now(),
+    //     //       _id: 'optimistic_id' as Id<'todos'>,
+    //     //       completed: false,
+    //     //       text: 'Some dummy text'
+    //     //     },
+    //     //     ...current
+    //     //   ]);
+    //     // }
+    //   })
+
     // },
+
+    /** Fill the store with data from the backend **/
+    async fill() {
+      logger('fill started')
+      const response = await fetch(apiUrl)
+      const items = await response.json()
+      // console.log('items after json decode:', items)
+      this.items = items
+      // console.log('state items:', this.items)
+      logger('fill complete')
+    },
 
     /** A generic fetch method to keep things DRY-ish **/
     async genericFetch(

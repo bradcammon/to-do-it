@@ -40,10 +40,11 @@ export const remove = mutation({
 })
 
 export const add = mutation({
-  args: { text: v.string() },
-  handler: async (ctx, { text }) => {
+  args: { name: v.string() },
+  handler: async (ctx, { name }) => {
+    console.log('inside todos.ts add mutation')
     await ctx.db.insert('todos', {
-      text,
+      name,
       completed: false
     })
   }

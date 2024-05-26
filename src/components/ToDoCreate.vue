@@ -1,14 +1,21 @@
 <script setup>
 import { ref } from 'vue'
 import { useToDoStore } from '@/stores/ToDoStore'
+import { useConvexQuery, useConvexMutation } from '@convex-vue/core'
+import { api } from '../../convex/_generated/api'
 
 let toDo = useToDoStore()
 
 let toDoItem = ref('')
 
-function add() {
-  toDo.addNewToDo(toDoItem.value)
-  toDoItem.value = ''
+const { mutate: addTodo } = useConvexMutation(api.todos.add, {
+  onSuccess() {
+    toDoItem.value = ''
+  }
+})
+
+async function add() {
+  await addTodo({ name: toDoItem.value })
 }
 </script>
 

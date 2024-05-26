@@ -63,15 +63,15 @@ export let useToDoStore = defineStore('toDo', {
     },
 
     /** Fill the store with data from the backend **/
-    // async fill() {
-    //   logger('fill started')
-    //   const response = await fetch(apiUrl)
-    //   const items = await response.json()
-    //   // console.log('items after json decode:', items)
-    //   this.items = items
-    //   // console.log('state items:', this.items)
-    //   logger('fill complete')
-    // },
+    async fill() {
+      logger('fill started')
+      const response = await fetch(apiUrl)
+      const items = await response.json()
+      // console.log('items after json decode:', items)
+      this.items = items
+      // console.log('state items:', this.items)
+      logger('fill complete')
+    },
 
     /** A generic fetch method to keep things DRY-ish **/
     async genericFetch(

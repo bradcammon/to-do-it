@@ -9,7 +9,7 @@ import ToDoFooter from '@/components/ToDoFooter.vue'
 <template>
   <v-container>
     <v-row justify="center" align="center">
-      <v-col cols="12" sm="8" md="6">
+      <v-col cols="12" sm="6" md="8">
         <ToDoHeader />
         <ToDoCreate />
         <ToDoTabs />

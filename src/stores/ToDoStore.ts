@@ -15,6 +15,7 @@ interface Item {
   id: string
   name: string
   completed: boolean
+  ageInSeconds?: number
   _creationTime?: number
   _id?: string
 }

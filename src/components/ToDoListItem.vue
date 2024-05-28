@@ -1,8 +1,9 @@
 <script setup>
 import { useToDoStore } from '@/stores/ToDoStore'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
+import Timer from './Timer.vue'
 
 const { mutate: setCompleted } = useConvexMutation(api.todos.setCompleted)
 const { mutate: removeTodo, isLoading: isRemoving } = useConvexMutation(api.todos.remove)
@@ -15,7 +16,7 @@ defineProps({
 })
 
 const inputName = defineModel()
-const emit = defineEmits(['editItem']) // this _seems_ to be required...not sure.  Need to research
+const emit = defineEmits(['editItem', 'updateAge']) // this _seems_ to be required...not sure.  Need to research
 
 async function toggleComplete(item) {
   await setCompleted({ completed: !item.completed, id: item._id })
@@ -33,16 +34,30 @@ function submitEdit(item) {
   editMode.value = false
   emit('editItem', item)
 }
+
+function handleAgeChange(newTime, id) {
+  emit('updateAge', id, newTime)
+}
 </script>
 
 <template>
   <li v-if="!editMode" class="listItem" :class="{ completed: item.completed }">
     <input class="listItemCheckbox" type="checkbox" @click="toggleComplete(item)" />
-    {{ item.name }}
+    <span class="listItemName">{{ item.name }}{{ item.timePassed }}</span>
+
+    <div>
+      <Timer
+        :id="item._id"
+        :age="item.ageInSeconds"
+        :completed="item.completed"
+        @ageChanged="handleAgeChange"
+      />
+    </div>
+
     <v-btn @click="editItem()" density="comfortable" icon="mdi-pencil" size="small"></v-btn>
     <v-btn @click="deleteItem(item)" density="comfortable" icon="mdi-delete" size="small"></v-btn>
   </li>
-  <div class="editMode" v-else>
+  <div v-else class="editMode">
     <div></div>
     <v-text-field
       density="compact"
@@ -56,13 +71,22 @@ function submitEdit(item) {
 </template>
 
 <style>
+.listItemName {
+  background-color: white;
+  transition: background-color 1s;
+}
+
+.listItemName:hover {
+  background-color: lightgray;
+}
+
 .listItemCheckbox {
   justify-self: center;
   width: 1em;
 }
 .listItem {
   display: grid;
-  grid-template-columns: 0.5fr 9.5fr 1fr 1fr;
+  grid-template-columns: 0.5fr 8.5fr 1fr 1fr 1fr;
   column-gap: 0.5em;
   margin: 5px 0px;
 }

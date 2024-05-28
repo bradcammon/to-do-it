@@ -54,7 +54,8 @@ export const add = mutation({
     console.log('inside todos.ts add mutation')
     await ctx.db.insert('todos', {
       name,
-      completed: false
+      completed: false,
+      ageInSeconds: 0
     })
   }
 })
@@ -71,5 +72,12 @@ export const editText = mutation({
   args: { name: v.string(), id: v.id('todos') },
   handler: async (ctx, { id, name }) => {
     await ctx.db.patch(id, { name })
+  }
+})
+
+export const updateAgeInSeconds = mutation({
+  args: { ageInSeconds: v.number(), id: v.id('todos') },
+  handler: async (ctx, { id, ageInSeconds }) => {
+    await ctx.db.patch(id, { ageInSeconds })
   }
 })

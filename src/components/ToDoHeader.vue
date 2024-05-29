@@ -1,3 +1,7 @@
+<script setup>
+import ToolBarTimer from './ToolBarTimer.vue'
+</script>
+
 <template>
   <div>
     <v-toolbar dark prominent>
@@ -6,6 +10,8 @@
       <v-toolbar-title>ToDo It</v-toolbar-title>
 
       <v-spacer></v-spacer>
+
+      <!-- <ToolBarTimer /> -->
 
       <!-- <v-btn icon>
         <v-icon>mdi-export</v-icon>

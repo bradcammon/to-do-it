@@ -8,28 +8,6 @@ export const get = query({
   }
 })
 
-export const send = mutation({
-  args: { text: v.string(), isCompleted: v.boolean() },
-  handler: async (ctx, args) => {
-    // Send a new message.
-    await ctx.db.insert('tasks', { text: args.text, isCompleted: args.isCompleted })
-  }
-})
-
-/** */
-
-export const list = query({
-  args: {
-    forceError: v.optional(v.boolean())
-  },
-  handler: (ctx, args) => {
-    if (args.forceError) {
-      throw new Error('forced error !')
-    }
-    return ctx.db.query('todos').order('desc').collect()
-  }
-})
-
 export const remove = mutation({
   args: { id: v.id('todos') },
   handler: async (ctx, { id }) => {
@@ -70,3 +48,25 @@ export const editText = mutation({
     await ctx.db.patch(id, { name })
   }
 })
+
+// export const send = mutation({
+//   args: { text: v.string(), isCompleted: v.boolean() },
+//   handler: async (ctx, args) => {
+//     // Send a new message.
+//     await ctx.db.insert('tasks', { text: args.text, isCompleted: args.isCompleted })
+//   }
+// })
+
+// /** */
+
+// export const list = query({
+//   args: {
+//     forceError: v.optional(v.boolean())
+//   },
+//   handler: (ctx, args) => {
+//     if (args.forceError) {
+//       throw new Error('forced error !')
+//     }
+//     return ctx.db.query('todos').order('desc').collect()
+//   }
+// })

@@ -3,19 +3,10 @@ import { useConvexQuery, useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
 import { watchEffect } from 'vue'
 
-const debugMode = true
-
-function logger(label: string = '', logItem: any = null) {
-  if (debugMode) {
-    console.log(label, logItem)
-  }
-}
-
 interface Item {
-  id: string
   name: string
   completed: boolean
-  ageInSeconds?: number
+  created?: number
   _creationTime?: number
   _id?: string
 }
@@ -46,11 +37,10 @@ export let useToDoStore = defineStore('toDo', {
   },
   actions: {
     async fillFromConvex() {
-      // TODO: handle errors etc
-      const { data, isLoading, error, suspense } = useConvexQuery(
-        api.todos.get, // the query name
-        {} // query arguments, if no arguments you need to pass an empty object. It can be ref
-      )
+      const { data, isLoading, error, suspense } = useConvexQuery(api.todos.get, {})
+      if (error.value) {
+        console.log('error from fillFromConvex', error)
+      }
 
       watchEffect(() => {
         if (!isLoading.value) {
@@ -61,6 +51,3 @@ export let useToDoStore = defineStore('toDo', {
     }
   }
 })
-
-// TODO: If there is a network interruption during an attempt to update the backend,
-// how to handle synchronizing the state of the local store and the backend at a later time?

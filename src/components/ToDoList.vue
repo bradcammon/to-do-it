@@ -5,7 +5,6 @@ import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
 
 const { mutate: editItemText } = useConvexMutation(api.todos.editText)
-const { mutate: updateAge } = useConvexMutation(api.todos.updateAgeInSeconds)
 
 let toDo = useToDoStore()
 

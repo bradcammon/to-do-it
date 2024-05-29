@@ -1,14 +1,11 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 
-// const props = defineProps({
-//   id: String,
-//   age: Number,
-//   completed: Boolean
-//   //   toDoItem: Object
-// })
+const props = defineProps({
+  completed: Boolean,
+  creationTime: Number
+})
 
-// const emit = defineEmits(['ageChanged'])
 const WARNING_THRESHOLD = 60
 const ALERT_THRESHOLD = 180
 let intervalID
@@ -53,10 +50,14 @@ const timeColor = computed(() => {
   }
 })
 
-// const istoDoItemCompleted = computed(() => props.completed)
+const isToDoItemCompleted = computed(() => props.completed)
 
 function startTimer() {
-  intervalID = setInterval(() => (timePassed.value += 1), 1000)
+  intervalID = setInterval(() => {
+    const creationTimeInSeconds = Math.floor(new Date(props.creationTime) / 1000)
+    const nowInSeconds = Math.floor(Date.now() / 1000)
+    timePassed.value = nowInSeconds - creationTimeInSeconds
+  }, 1000)
 }
 
 function stopTimer() {
@@ -64,22 +65,30 @@ function stopTimer() {
   intervalID = null
 }
 
-// watch(
-//   () => istoDoItemCompleted.value,
-//   (newValue) => {
-//     stopTimer()
-//   }
-// )
+watch(
+  () => isToDoItemCompleted.value,
+  (newValue) => {
+    isToDoItemCompleted.value ? stopTimer() : startTimer()
+  }
+)
 
 onMounted(() => {
-  startTimer()
+  if (!props.completed) {
+    startTimer()
+  }
 })
 </script>
 
 <template>
   <div>
-    <span :style="{ color: timeColor }"
-      >Time since last ToDo created: {{ formattedTimePassed }}</span
-    >
+    <span class="timePassed" :style="{ color: timeColor }">{{
+      timePassed > 0 ? formattedTimePassed : ''
+    }}</span>
   </div>
 </template>
+
+<style>
+.timePassed {
+  font-size: 0.9em;
+}
+</style>

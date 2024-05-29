@@ -34,12 +34,6 @@ function submitEdit(item) {
   editMode.value = false
   emit('editItem', item)
 }
-
-function handleAgeChange(newTime, id) {
-  if (!editMode.value) {
-    emit('updateAge', id, newTime)
-  }
-}
 </script>
 
 <template>
@@ -48,12 +42,7 @@ function handleAgeChange(newTime, id) {
     <span class="listItemName">{{ item.name }}{{ item.timePassed }}</span>
 
     <div>
-      <Timer
-        :id="item._id"
-        :age="item.ageInSeconds"
-        :completed="item.completed"
-        @ageChanged="handleAgeChange"
-      />
+      <Timer :creationTime="item.created" :completed="item.completed" />
     </div>
 
     <v-btn @click="editItem()" density="comfortable" icon="mdi-pencil" size="small"></v-btn>

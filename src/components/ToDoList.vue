@@ -12,11 +12,6 @@ let toDo = useToDoStore()
 function handleItemEdit(item) {
   editItemText({ id: item._id, name: item.name })
 }
-
-function handleAgeUpdate(id, age) {
-  // console.log('in handle')
-  updateAge({ id: id, ageInSeconds: age })
-}
 </script>
 
 <template>
@@ -25,7 +20,6 @@ function handleAgeUpdate(id, age) {
       <ToDoListItem
         v-for="item in toDo.filteredItems"
         @editItem="handleItemEdit"
-        @updateAge="handleAgeUpdate"
         :key="item.id"
         :item="item"
         v-model="item.name"

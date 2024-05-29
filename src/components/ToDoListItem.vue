@@ -4,7 +4,6 @@ import { ref, onMounted } from 'vue'
 import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
 import Timer from './Timer.vue'
-import Foo from './Foo.vue'
 
 const { mutate: setCompleted } = useConvexMutation(api.todos.setCompleted)
 const { mutate: removeTodo, isLoading: isRemoving } = useConvexMutation(api.todos.remove)
@@ -56,7 +55,6 @@ function handleAgeChange(newTime, id) {
         @ageChanged="handleAgeChange"
       />
     </div>
-    <!-- <div><Foo :name="item.name" /></div> -->
 
     <v-btn @click="editItem()" density="comfortable" icon="mdi-pencil" size="small"></v-btn>
     <v-btn @click="deleteItem(item)" density="comfortable" icon="mdi-delete" size="small"></v-btn>

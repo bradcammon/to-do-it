@@ -12,26 +12,15 @@ let toDo = useToDoStore()
 
 <template>
   <v-card>
-    <v-tabs v-model="toDo.currentTag" bg-color="#0096B3">
-      <v-tab @click="toDo.currentTag = 'all'" value="one"
-        >All ({{ toDo.allItemsFilter.length }})</v-tab
-      >
-      <v-tab @click="toDo.currentTag = 'active'" value="two"
+    <v-tabs bg-color="#0096B3" fixed-tabs>
+      <v-tab @click="toDo.currentTag = 'all'">All ({{ toDo.allItemsFilter.length }})</v-tab>
+
+      <v-tab @click="toDo.currentTag = 'active'"
         >Active ({{ toDo.activeItemsFilter.length }})</v-tab
       >
-      <v-tab @click="toDo.currentTag = 'completed'" value="three"
+      <v-tab @click="toDo.currentTag = 'completed'"
         >Completed ({{ toDo.completedItemsFilter.length }})</v-tab
       >
     </v-tabs>
-
-    <!-- <v-card-text>
-      <v-tabs-window v-model="toDo.currentTag">
-        <v-tabs-window-item value="one"> One </v-tabs-window-item>
-
-        <v-tabs-window-item value="two"> Two </v-tabs-window-item>
-
-        <v-tabs-window-item value="three"> Three </v-tabs-window-item>
-      </v-tabs-window>
-    </v-card-text> -->
   </v-card>
 </template>

@@ -38,7 +38,12 @@ function submitEdit(item) {
 <template>
   <div class="itemRow">
     <li v-if="!editMode" class="listItem">
-      <input class="listItemCheckbox" type="checkbox" @click="toggleComplete(item)" />
+      <input
+        class="listItemCheckbox"
+        type="checkbox"
+        v-model="item.completed"
+        @click="toggleComplete(item)"
+      />
       <span :class="{ completed: item.completed }" class="listItemName"
         >{{ item.name }}{{ item.timePassed }}</span
       >

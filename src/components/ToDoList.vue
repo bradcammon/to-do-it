@@ -19,7 +19,7 @@ function handleItemEdit(item) {
       <ToDoListItem
         v-for="item in toDo.filteredItems"
         @editItem="handleItemEdit"
-        :key="item.id"
+        :key="item._id"
         :item="item"
         v-model="item.name"
       />

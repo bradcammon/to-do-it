@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-
+const GITHUB_LOGO =
+  'https://raw.githubusercontent.com/AmineMahdioui/AmineMahdioui/master/.github/images/github-icon-1-logo.svg'
+const LINKEDIN_LOGO =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/240px-LinkedIn_logo_initials.png'
+const GITHUB_PROJECT_URL = 'https://github.com/bradcammon/to-do-it'
+const LINKEDIN_PROFILE_URL = 'https://linkedin.com/in/bradcammon'
 const drawer = ref(false)
 </script>
 
@@ -22,15 +27,15 @@ const drawer = ref(false)
         <v-list-item title="Brad Cammon" subtitle="Links"></v-list-item>
         <v-divider></v-divider>
         <v-list-item
-          prepend-avatar="https://raw.githubusercontent.com/AmineMahdioui/AmineMahdioui/master/.github/images/github-icon-1-logo.svg"
-          href="https://github.com/bradcammon/to-do-it"
+          prepend-avatar="GITHUB_LOGO"
+          href="GITHUB_PROJECT_URL"
           target="_blank"
           link
           title="GitHub"
         ></v-list-item>
         <v-list-item
-          prepend-avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/240px-LinkedIn_logo_initials.png"
-          href="https://linkedin.com/in/bradcammon"
+          prepend-avatar="LINKEDIN_LOGO"
+          href="LINKEDIN_PROFILE_URL"
           target="_blank"
           link
           title="LinkedIn"

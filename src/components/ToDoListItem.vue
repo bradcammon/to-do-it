@@ -5,8 +5,8 @@ import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
 import Timer from './ToDoTimer.vue'
 
-const { mutate: setCompleted } = useConvexMutation(api.todos.setCompleted)
-const { mutate: removeTodo, isLoading: isRemoving } = useConvexMutation(api.todos.remove)
+const { mutate: setCompleted, error: setCompleteError } = useConvexMutation(api.todos.setCompleted)
+const { mutate: removeTodo, error: removeTodoError } = useConvexMutation(api.todos.remove)
 
 let editMode = ref(false)
 
@@ -19,23 +19,21 @@ const emit = defineEmits(['editItem'])
 
 async function toggleComplete(item) {
   await setCompleted({ completed: !item.completed, id: item._id })
+  if (setCompleteError.value) {
+    console.log(setCompleteError.value)
+  }
 }
 
 async function deleteItem(item) {
   await removeTodo({ id: item._id })
-}
-
-function editItem() {
-  editMode.value = true
+  if (removeTodoError.value) {
+    console.log(removeTodoError.value)
+  }
 }
 
 function submitEdit(item) {
   editMode.value = false
   emit('editItem', item)
-}
-
-function cancelEdit() {
-  editMode.value = false
 }
 </script>
 
@@ -48,6 +46,7 @@ function cancelEdit() {
         v-model="item.completed"
         @click="toggleComplete(item)"
       />
+
       <span :class="{ completed: item.completed }" class="listItemName"
         >{{ item.name }}{{ item.timePassed }}</span
       >
@@ -57,7 +56,7 @@ function cancelEdit() {
       </div>
 
       <v-btn
-        @click="editItem()"
+        @click="editMode = true"
         density="comfortable"
         icon="$pencil"
         size="small"
@@ -92,7 +91,7 @@ function cancelEdit() {
       ></v-btn>
 
       <v-btn
-        @click="cancelEdit()"
+        @click="editMode = false"
         density="comfortable"
         icon="$closeCircle"
         size="small"
@@ -107,10 +106,6 @@ function cancelEdit() {
   background-color: white;
   transition: background-color 0.3s;
 }
-
-/* .itemRow:hover {
-  background-color: #ebedf0;
-} */
 
 .listItemCheckbox {
   justify-self: center;

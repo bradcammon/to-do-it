@@ -2,12 +2,6 @@
 import { useToDoStore } from '@/stores/ToDoStore'
 
 let toDo = useToDoStore()
-
-// export default {
-//   data: () => ({
-//     tab: null
-//   })
-// }
 </script>
 
 <template>

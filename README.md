@@ -19,10 +19,11 @@ I added a timer element to each task that displays how much time has passed sinc
 
 ## Future Work
 
-It would be nice to add authentication as a next step - currently all tasks are visible to and editable by everyyone. Since this was just a demo/practice project, authentication wasn't a hard requirement, but going forward, I think it would be a good feature to have.
+- **Auth**: It would be nice to add authentication as a next step - currently all tasks are visible to and editable by everyyone. Since this was just a demo/practice project, authentication wasn't a hard requirement, but going forward, I think it would be a good feature to have.
 
-Also, I started the project using Pinia as a store for state management, along with Json-Server as a temporary backend. However, once I integrated Convex, I didn't need Pinia for state management as much. Going forward, I would look into whether or not it is truly needed, and if not, remove it.
+- **Pinia**: Also, I started the project using Pinia as a store for state management, along with Json-Server as a temporary backend. However, once I integrated Convex, I didn't need Pinia for state management as much. Going forward, I would look into whether or not it is truly needed, and if not, remove it.
 
+- **Tests**: There are no tests at the moment, but I would love to add some end-to-end tests at a minimum. 
 ---
 
 ## Installing and running locally

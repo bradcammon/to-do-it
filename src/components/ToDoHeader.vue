@@ -49,6 +49,6 @@ const drawer = ref(false)
 }
 
 .v-toolbar-title {
-  font-size: 2em !important;
+  font-size: 1.5em !important;
 }
 </style>

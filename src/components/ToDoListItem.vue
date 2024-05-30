@@ -59,7 +59,7 @@ function cancelEdit() {
       <v-btn
         @click="editItem()"
         density="comfortable"
-        icon="mdi-pencil"
+        icon="$pencil"
         size="small"
         color="#A17CB1"
         :disabled="item.completed"
@@ -68,7 +68,7 @@ function cancelEdit() {
       <v-btn
         @click="deleteItem(item)"
         density="comfortable"
-        icon="mdi-delete"
+        icon="$delete"
         size="small"
         color="#A17CB1"
       ></v-btn>
@@ -86,7 +86,7 @@ function cancelEdit() {
       <v-btn
         @click="submitEdit(item)"
         density="comfortable"
-        icon="mdi-check"
+        icon="$check"
         size="small"
         color="#96AFB8"
       ></v-btn>
@@ -94,7 +94,7 @@ function cancelEdit() {
       <v-btn
         @click="cancelEdit()"
         density="comfortable"
-        icon="mdi-close-circle"
+        icon="$closeCircle"
         size="small"
         color="#96AFB8"
       ></v-btn>

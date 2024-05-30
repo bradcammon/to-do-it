@@ -1,5 +1,3 @@
-// import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
@@ -8,14 +6,26 @@ import { createConvexVue } from '@convex-vue/core'
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import { mdiPencil, mdiDelete, mdiCheck, mdiCloseCircle, mdiDeleteAlert } from '@mdi/js'
 
 const app = createApp(App)
 
 const vuetify = createVuetify({
-  components,
-  directives
+  icons: {
+    defaultSet: 'mdi',
+    aliases: {
+      ...aliases,
+      pencil: mdiPencil,
+      delete: mdiDelete,
+      check: mdiCheck,
+      closeCircle: mdiCloseCircle,
+      deleteAlert: mdiDeleteAlert
+    },
+    sets: {
+      mdi
+    }
+  }
 })
 
 const convexVue = createConvexVue({

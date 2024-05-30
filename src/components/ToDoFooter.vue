@@ -28,7 +28,7 @@ function deleteCompleted() {
     <v-card class="mx-auto">
       <v-card-text class="d-flex justify-space-between">
         <v-chip
-          prepend-icon="mdi-delete-alert"
+          prepend-icon="$deleteAlert"
           @click="deleteCompleted"
           color="#F89236"
           :disabled="toDo.completedItemsFilter.length == 0"

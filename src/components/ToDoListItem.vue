@@ -1,5 +1,4 @@
 <script setup>
-import { useToDoStore } from '@/stores/ToDoStore'
 import { ref, onMounted } from 'vue'
 import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'

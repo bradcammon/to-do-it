@@ -1,10 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import { useToDoStore } from '@/stores/ToDoStore'
 import { useConvexMutation } from '@convex-vue/core'
 import { api } from '../../convex/_generated/api'
-
-let toDo = useToDoStore()
 
 let toDoItem = ref('')
 

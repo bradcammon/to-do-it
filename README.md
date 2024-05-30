@@ -5,6 +5,7 @@
 ToDo It is a very simple to-do list web app that I used to try out:
 
 - [VueJS](https://vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
 - [Vite](https://vitejs.dev/)
 - [Vuetify](https://vuetifyjs.com/)
 - [Typescript](https://www.typescriptlang.org/)
@@ -15,6 +16,8 @@ My goal was to demonstrate the basics of reactivity in Vue, as well as how a bac
 ## Future Work
 
 It would be nice to add authentication as a next step - currently all tasks are visible to and editable by everyyone. Since this was just a demo/practice project, authentication wasn't a hard requirement, but going forward, I think it would be a good feature to have.
+
+Also, I started the project using Pinia as a store for state management, along with Json-Server as a temporary backend. However, once I integrated Convex, I didn't need Pinia for state management as much. Going forward, I would look into whether or not it is truly needed, and if not, remove it.
 
 ---
 

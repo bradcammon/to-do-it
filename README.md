@@ -2,7 +2,7 @@
 
 ## Background
 
-ToDo It is a very simple to-do list web app that I used to try out:
+ToDo It is a very simple to-do list web app that I built to try out:
 
 - [VueJS](https://vuejs.org/)
 - [Pinia](https://pinia.vuejs.org/)

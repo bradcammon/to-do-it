@@ -12,7 +12,9 @@ const { mutate: addTodo } = useConvexMutation(api.todos.add, {
 })
 
 function add() {
-  addTodo({ name: toDoItem.value })
+  if (toDoItem.value.length > 0) {
+    addTodo({ name: toDoItem.value })
+  }
 }
 </script>
 
@@ -20,7 +22,6 @@ function add() {
   <form @submit.prevent="add">
     <div>
       <v-text-field label="Enter ToDo Item" v-model="toDoItem" variant="solo"></v-text-field>
-      <!-- <v-btn type="submit" variant="outlined"> Add </v-btn> -->
     </div>
   </form>
 </template>

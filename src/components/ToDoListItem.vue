@@ -33,6 +33,10 @@ function submitEdit(item) {
   editMode.value = false
   emit('editItem', item)
 }
+
+function cancelEdit() {
+  editMode.value = false
+}
 </script>
 
 <template>
@@ -58,7 +62,9 @@ function submitEdit(item) {
         icon="mdi-pencil"
         size="small"
         color="#A17CB1"
+        :disabled="item.completed"
       ></v-btn>
+
       <v-btn
         @click="deleteItem(item)"
         density="comfortable"
@@ -67,6 +73,7 @@ function submitEdit(item) {
         color="#A17CB1"
       ></v-btn>
     </li>
+
     <div v-else class="editMode">
       <div></div>
       <v-text-field
@@ -81,7 +88,15 @@ function submitEdit(item) {
         density="comfortable"
         icon="mdi-check"
         size="small"
-        color="#A17CB1"
+        color="#96AFB8"
+      ></v-btn>
+
+      <v-btn
+        @click="cancelEdit()"
+        density="comfortable"
+        icon="mdi-close-circle"
+        size="small"
+        color="#96AFB8"
       ></v-btn>
     </div>
   </div>

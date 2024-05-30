@@ -89,6 +89,6 @@ onMounted(() => {
 
 <style>
 .timePassed {
-  font-size: 0.9em;
+  font-size: 0.8em;
 }
 </style>

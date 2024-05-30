@@ -47,8 +47,20 @@ function submitEdit(item) {
         <Timer :creationTime="item.created" :completed="item.completed" />
       </div>
 
-      <v-btn @click="editItem()" density="comfortable" icon="mdi-pencil" size="small"></v-btn>
-      <v-btn @click="deleteItem(item)" density="comfortable" icon="mdi-delete" size="small"></v-btn>
+      <v-btn
+        @click="editItem()"
+        density="comfortable"
+        icon="mdi-pencil"
+        size="small"
+        color="#A17CB1"
+      ></v-btn>
+      <v-btn
+        @click="deleteItem(item)"
+        density="comfortable"
+        icon="mdi-delete"
+        size="small"
+        color="#A17CB1"
+      ></v-btn>
     </li>
     <div v-else class="editMode">
       <div></div>
@@ -59,7 +71,13 @@ function submitEdit(item) {
         variant="outlined"
       ></v-text-field>
 
-      <v-btn @click="submitEdit(item)" density="comfortable" icon="mdi-check" size="small"></v-btn>
+      <v-btn
+        @click="submitEdit(item)"
+        density="comfortable"
+        icon="mdi-check"
+        size="small"
+        color="#A17CB1"
+      ></v-btn>
     </div>
   </div>
 </template>
@@ -70,9 +88,9 @@ function submitEdit(item) {
   transition: background-color 0.3s;
 }
 
-.itemRow:hover {
+/* .itemRow:hover {
   background-color: #ebedf0;
-}
+} */
 
 .listItemCheckbox {
   justify-self: center;
@@ -83,6 +101,10 @@ function submitEdit(item) {
   grid-template-columns: 0.5fr 8.5fr 1fr 1fr 1fr;
   column-gap: 0.5em;
   margin: 5px 0px;
+}
+
+.listItemName {
+  color: #334a52;
 }
 .editMode {
   display: grid;

@@ -27,7 +27,9 @@ function deleteCompleted() {
   <footer>
     <v-card class="mx-auto">
       <v-card-text class="d-flex justify-space-between">
-        <v-chip prepend-icon="mdi-delete-alert" @click="deleteCompleted"> Clear Completed </v-chip>
+        <v-chip prepend-icon="mdi-delete-alert" @click="deleteCompleted" color="#F89236">
+          Clear Completed
+        </v-chip>
       </v-card-text>
     </v-card>
   </footer>

@@ -12,7 +12,7 @@ let toDo = useToDoStore()
 
 <template>
   <v-card>
-    <v-tabs v-model="toDo.currentTag" bg-color="primary">
+    <v-tabs v-model="toDo.currentTag" bg-color="#0096B3">
       <v-tab @click="toDo.currentTag = 'all'" value="one"
         >All ({{ toDo.allItemsFilter.length }})</v-tab
       >

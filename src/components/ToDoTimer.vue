@@ -12,14 +12,14 @@ let intervalID
 
 const COLOR_CODES = {
   info: {
-    color: 'green'
+    color: '#008953' //green
   },
   warning: {
-    color: 'orange',
+    color: '#F89236', //orange
     threshold: WARNING_THRESHOLD
   },
   alert: {
-    color: 'red',
+    color: '#DA6084', //red
     threshold: ALERT_THRESHOLD
   }
 }
